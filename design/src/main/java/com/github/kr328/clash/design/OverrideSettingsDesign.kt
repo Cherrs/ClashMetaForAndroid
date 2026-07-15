@@ -70,6 +70,17 @@ class OverrideSettingsDesign(
         )
 
         val screen = preferenceScreen(context) {
+            category(R.string.rule)
+
+            editableTextList(
+                value = configuration::prependRules,
+                adapter = TextAdapter.String,
+                title = R.string.custom_rules,
+                placeholder = R.string.dont_modify,
+            )
+
+            tips(R.string.custom_rules_tips)
+
             category(R.string.general)
 
             editableText(

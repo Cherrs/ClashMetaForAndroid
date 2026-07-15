@@ -191,6 +191,8 @@
     <string name="invalid_file_name">非法的文件名稱</string>
     <string name="reset_override_settings">重置覆寫設置</string>
     <string name="reset_override_settings_message">所有的覆寫設置將會被擦除</string>
+    <string name="custom_rules">自訂規則</string>
+    <string name="custom_rules_tips"><![CDATA[自訂規則會插入訂閱規則之前，並按清單順序由上至下配對。例如：<strong>DOMAIN,example.com,DIRECT</strong>。為盡量降低配對開銷，請保持規則精簡，並將常用規則放在前面。離開本頁後生效。]]></string>
     <string name="key">鍵</string>
     <string name="more">更多</string>
     <string name="save">保存</string>

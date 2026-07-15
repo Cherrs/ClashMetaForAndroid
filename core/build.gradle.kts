@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.kotlin.coroutine)
     implementation(libs.kotlin.serialization.json)
+
+    testImplementation(kotlin("test"))
 }
 
 afterEvaluate {

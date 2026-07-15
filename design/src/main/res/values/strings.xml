@@ -283,6 +283,8 @@
 
     <string name="reset_override_settings">Reset Override Settings</string>
     <string name="reset_override_settings_message">All override settings will be discarded</string>
+    <string name="custom_rules">Custom Rules</string>
+    <string name="custom_rules_tips"><![CDATA[Custom rules are placed before subscription rules and matched from top to bottom. Example: <strong>DOMAIN,example.com,DIRECT</strong>. Keep the list short and put frequently matched rules first to minimize matching work. Changes take effect after leaving this page.]]></string>
     <string name="key">Key</string>
 
     <string name="use_built_in">Use Built-in</string>

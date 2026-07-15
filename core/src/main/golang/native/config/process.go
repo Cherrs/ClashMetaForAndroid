@@ -1,10 +1,8 @@
 package config
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/dlclark/regexp2"
 
@@ -31,12 +29,19 @@ var processors = []processor{
 type processor func(cfg *config.RawConfig, profileDir string) error
 
 func patchOverride(cfg *config.RawConfig, _ string) error {
-	if err := json.NewDecoder(strings.NewReader(ReadOverride(OverrideSlotPersist))).Decode(cfg); err != nil {
+	persistRules, err := applyOverrideContent(cfg, ReadOverride(OverrideSlotPersist))
+	if err != nil {
 		log.Warnln("Apply persist override: %s", err.Error())
+		persistRules = nil
 	}
-	if err := json.NewDecoder(strings.NewReader(ReadOverride(OverrideSlotSession))).Decode(cfg); err != nil {
+
+	sessionRules, err := applyOverrideContent(cfg, ReadOverride(OverrideSlotSession))
+	if err != nil {
 		log.Warnln("Apply session override: %s", err.Error())
+		sessionRules = nil
 	}
+
+	prependOverrideRules(cfg, persistRules, sessionRules)
 
 	return nil
 }

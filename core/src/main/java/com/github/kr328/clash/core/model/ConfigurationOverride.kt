@@ -56,6 +56,9 @@ data class ConfigurationOverride(
     @SerialName("hosts")
     var hosts: Map<String, String>? = null,
 
+    @SerialName("prepend-rules")
+    var prependRules: List<String>? = null,
+
     @SerialName("unified-delay")
     var unifiedDelay: Boolean? = null,
 
@@ -248,6 +251,47 @@ data class ConfigurationOverride(
         @SerialName("override-destination")
         var overrideDestination: Boolean? = null,
     )
+
+    fun deepCopy(): ConfigurationOverride {
+        return copy(
+            authentication = authentication?.toList(),
+            hosts = hosts?.toMap(),
+            prependRules = prependRules?.toList(),
+            externalControllerCors = externalControllerCors.copy(
+                allowOrigins = externalControllerCors.allowOrigins?.toList(),
+            ),
+            dns = dns.copy(
+                nameServer = dns.nameServer?.toList(),
+                fallback = dns.fallback?.toList(),
+                defaultServer = dns.defaultServer?.toList(),
+                fakeIpFilter = dns.fakeIpFilter?.toList(),
+                fallbackFilter = dns.fallbackFilter.copy(
+                    ipcidr = dns.fallbackFilter.ipcidr?.toList(),
+                    domain = dns.fallbackFilter.domain?.toList(),
+                ),
+                nameserverPolicy = dns.nameserverPolicy?.toMap(),
+            ),
+            app = app.copy(),
+            sniffer = sniffer.copy(
+                sniff = sniffer.sniff.copy(
+                    http = sniffer.sniff.http.copy(
+                        ports = sniffer.sniff.http.ports?.toList(),
+                    ),
+                    tls = sniffer.sniff.tls.copy(
+                        ports = sniffer.sniff.tls.ports?.toList(),
+                    ),
+                    quic = sniffer.sniff.quic.copy(
+                        ports = sniffer.sniff.quic.ports?.toList(),
+                    ),
+                ),
+                forceDomain = sniffer.forceDomain?.toList(),
+                skipDomain = sniffer.skipDomain?.toList(),
+                skipSrcAddress = sniffer.skipSrcAddress?.toList(),
+                skipDstAddress = sniffer.skipDstAddress?.toList(),
+            ),
+            geoxurl = geoxurl.copy(),
+        )
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         Parcelizer.encodeToParcel(serializer(), parcel, this)
